@@ -14869,14 +14869,23 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">train_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;UCI HAR Dataset/train/Y_train.txt&#39;</span><span class="p">,</span>
                       <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+<span class="n">test_subject</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;UCI HAR Dataset/test/subject_test.txt&#39;</span><span class="p">,</span>
+                           <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">train_subject</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;UCI HAR Dataset/train/subject_train.txt&#39;</span><span class="p">,</span>
+                            <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test_x</span><span class="p">,</span> <span class="n">train_x</span><span class="p">])</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test_y</span><span class="p">,</span> <span class="n">train_y</span><span class="p">])</span>
+<span class="n">subjects</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test_subject</span><span class="p">,</span> <span class="n">train_subject</span><span class="p">])</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;feature label&#39;</span><span class="p">])</span>
 <span class="n">y</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+<span class="n">subjects</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
     <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">activity_labels</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;activity label&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;any&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -14932,7 +14941,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <th>tBodyAcc-mad()-Z</th>
       <th>tBodyAcc-max()-X</th>
       <th>...</th>
-      <th>fBodyBodyGyroJerkMag-skewness()</th>
       <th>fBodyBodyGyroJerkMag-kurtosis()</th>
       <th>angle(tBodyAccMean,gravity)</th>
       <th>angle(tBodyAccJerkMean),gravityMean)</th>
@@ -14942,6 +14950,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <th>angle(Y,gravityMean)</th>
       <th>angle(Z,gravityMean)</th>
       <th>activity</th>
+      <th>subject</th>
     </tr>
   </thead>
   <tbody>
@@ -14958,7 +14967,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>-0.674302</td>
       <td>-0.894088</td>
       <td>...</td>
-      <td>-0.330370</td>
       <td>-0.705974</td>
       <td>0.006462</td>
       <td>0.162920</td>
@@ -14968,6 +14976,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.276801</td>
       <td>-0.057978</td>
       <td>STANDING</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>1</th>
@@ -14982,7 +14991,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>-0.945823</td>
       <td>-0.894088</td>
       <td>...</td>
-      <td>-0.121845</td>
       <td>-0.594944</td>
       <td>-0.083495</td>
       <td>0.017500</td>
@@ -14992,6 +15000,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.281343</td>
       <td>-0.083898</td>
       <td>STANDING</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
@@ -15006,7 +15015,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>-0.963483</td>
       <td>-0.939260</td>
       <td>...</td>
-      <td>-0.190422</td>
       <td>-0.640736</td>
       <td>-0.034956</td>
       <td>0.202302</td>
@@ -15016,6 +15024,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.280083</td>
       <td>-0.079346</td>
       <td>STANDING</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>3</th>
@@ -15030,7 +15039,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>-0.968897</td>
       <td>-0.938610</td>
       <td>...</td>
-      <td>-0.344418</td>
       <td>-0.736124</td>
       <td>-0.017067</td>
       <td>0.154438</td>
@@ -15040,6 +15048,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.284114</td>
       <td>-0.077108</td>
       <td>STANDING</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>4</th>
@@ -15054,7 +15063,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>-0.977346</td>
       <td>-0.938610</td>
       <td>...</td>
-      <td>-0.534685</td>
       <td>-0.846595</td>
       <td>-0.002223</td>
       <td>-0.040046</td>
@@ -15064,6 +15072,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.290722</td>
       <td>-0.073857</td>
       <td>STANDING</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>...</th>
@@ -15102,7 +15111,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.060410</td>
       <td>0.210795</td>
       <td>...</td>
-      <td>-0.588433</td>
       <td>-0.880324</td>
       <td>-0.190437</td>
       <td>0.829718</td>
@@ -15112,6 +15120,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.238604</td>
       <td>0.049819</td>
       <td>WALKING_UPSTAIRS</td>
+      <td>30</td>
     </tr>
     <tr>
       <th>10295</th>
@@ -15126,7 +15135,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.080585</td>
       <td>0.117440</td>
       <td>...</td>
-      <td>-0.390738</td>
       <td>-0.680744</td>
       <td>0.064907</td>
       <td>0.875679</td>
@@ -15136,6 +15144,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.252676</td>
       <td>0.050053</td>
       <td>WALKING_UPSTAIRS</td>
+      <td>30</td>
     </tr>
     <tr>
       <th>10296</th>
@@ -15150,7 +15159,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.332584</td>
       <td>0.043999</td>
       <td>...</td>
-      <td>0.025145</td>
       <td>-0.304029</td>
       <td>0.052806</td>
       <td>-0.266724</td>
@@ -15160,6 +15168,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.249145</td>
       <td>0.040811</td>
       <td>WALKING_UPSTAIRS</td>
+      <td>30</td>
     </tr>
     <tr>
       <th>10297</th>
@@ -15174,7 +15183,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.319473</td>
       <td>0.101702</td>
       <td>...</td>
-      <td>0.063907</td>
       <td>-0.344314</td>
       <td>-0.101360</td>
       <td>0.700740</td>
@@ -15184,6 +15192,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.246432</td>
       <td>0.025339</td>
       <td>WALKING_UPSTAIRS</td>
+      <td>30</td>
     </tr>
     <tr>
       <th>10298</th>
@@ -15198,7 +15207,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.229430</td>
       <td>0.269013</td>
       <td>...</td>
-      <td>-0.387052</td>
       <td>-0.740738</td>
       <td>-0.280088</td>
       <td>-0.007739</td>
@@ -15208,10 +15216,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.246809</td>
       <td>0.036695</td>
       <td>WALKING_UPSTAIRS</td>
+      <td>30</td>
     </tr>
   </tbody>
 </table>
-<p>10299 rows × 562 columns</p>
+<p>10299 rows × 563 columns</p>
 </div>
 </div>
 
@@ -15290,7 +15299,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <th>tBodyAcc-mad()-Z</th>
       <th>tBodyAcc-max()-X</th>
       <th>...</th>
-      <th>fBodyBodyGyroJerkMag-meanFreq()</th>
       <th>fBodyBodyGyroJerkMag-skewness()</th>
       <th>fBodyBodyGyroJerkMag-kurtosis()</th>
       <th>angle(tBodyAccMean,gravity)</th>
@@ -15300,6 +15308,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <th>angle(X,gravityMean)</th>
       <th>angle(Y,gravityMean)</th>
       <th>angle(Z,gravityMean)</th>
+      <th>subject</th>
     </tr>
   </thead>
   <tbody>
@@ -15316,7 +15325,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>-0.614989</td>
       <td>-0.466732</td>
       <td>...</td>
-      <td>0.126708</td>
       <td>-0.298592</td>
       <td>-0.617700</td>
       <td>0.007705</td>
@@ -15326,6 +15334,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>-0.496522</td>
       <td>0.063255</td>
       <td>-0.054284</td>
+      <td>16.146422</td>
     </tr>
     <tr>
       <th>std</th>
@@ -15340,7 +15349,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.399034</td>
       <td>0.538707</td>
       <td>...</td>
-      <td>0.245443</td>
       <td>0.320199</td>
       <td>0.308796</td>
       <td>0.336591</td>
@@ -15350,10 +15358,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>0.511158</td>
       <td>0.305468</td>
       <td>0.268898</td>
+      <td>8.679067</td>
     </tr>
   </tbody>
 </table>
-<p>2 rows × 561 columns</p>
+<p>2 rows × 562 columns</p>
 </div>
 </div>
 
@@ -15428,7 +15437,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;activity&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_temp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">])</span>
+<span class="n">df_temp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;activity&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -15662,6 +15672,834 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   </tbody>
 </table>
 <p>6 rows × 561 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_temp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">])</span>
+<span class="n">df_temp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tBodyAcc-mean()-X</th>
+      <th>tBodyAcc-mean()-Y</th>
+      <th>tBodyAcc-mean()-Z</th>
+      <th>tBodyAcc-std()-X</th>
+      <th>tBodyAcc-std()-Y</th>
+      <th>tBodyAcc-std()-Z</th>
+      <th>tBodyAcc-mad()-X</th>
+      <th>tBodyAcc-mad()-Y</th>
+      <th>tBodyAcc-mad()-Z</th>
+      <th>tBodyAcc-max()-X</th>
+      <th>...</th>
+      <th>fBodyBodyGyroJerkMag-meanFreq()</th>
+      <th>fBodyBodyGyroJerkMag-skewness()</th>
+      <th>fBodyBodyGyroJerkMag-kurtosis()</th>
+      <th>angle(tBodyAccMean,gravity)</th>
+      <th>angle(tBodyAccJerkMean),gravityMean)</th>
+      <th>angle(tBodyGyroMean,gravityMean)</th>
+      <th>angle(tBodyGyroJerkMean,gravityMean)</th>
+      <th>angle(X,gravityMean)</th>
+      <th>angle(Y,gravityMean)</th>
+      <th>angle(Z,gravityMean)</th>
+    </tr>
+    <tr>
+      <th>subject</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.265697</td>
+      <td>-0.018298</td>
+      <td>-0.107846</td>
+      <td>-0.545795</td>
+      <td>-0.367716</td>
+      <td>-0.502646</td>
+      <td>-0.580163</td>
+      <td>-0.391228</td>
+      <td>-0.488075</td>
+      <td>-0.397326</td>
+      <td>...</td>
+      <td>0.198032</td>
+      <td>-0.346916</td>
+      <td>-0.656185</td>
+      <td>0.037608</td>
+      <td>0.009018</td>
+      <td>-0.013451</td>
+      <td>-0.001630</td>
+      <td>-0.535774</td>
+      <td>0.122790</td>
+      <td>-0.039079</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.273113</td>
+      <td>-0.019132</td>
+      <td>-0.115650</td>
+      <td>-0.605586</td>
+      <td>-0.428963</td>
+      <td>-0.589360</td>
+      <td>-0.639919</td>
+      <td>-0.445338</td>
+      <td>-0.594606</td>
+      <td>-0.416421</td>
+      <td>...</td>
+      <td>0.124612</td>
+      <td>-0.244190</td>
+      <td>-0.578500</td>
+      <td>0.009872</td>
+      <td>0.014045</td>
+      <td>0.074585</td>
+      <td>-0.037293</td>
+      <td>-0.434487</td>
+      <td>0.172287</td>
+      <td>-0.078865</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.273429</td>
+      <td>-0.017856</td>
+      <td>-0.106493</td>
+      <td>-0.623414</td>
+      <td>-0.480016</td>
+      <td>-0.653626</td>
+      <td>-0.653765</td>
+      <td>-0.488786</td>
+      <td>-0.649033</td>
+      <td>-0.444346</td>
+      <td>...</td>
+      <td>0.059963</td>
+      <td>-0.182677</td>
+      <td>-0.500718</td>
+      <td>0.014094</td>
+      <td>0.013450</td>
+      <td>0.035901</td>
+      <td>-0.019207</td>
+      <td>-0.503323</td>
+      <td>0.075626</td>
+      <td>-0.017490</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.274183</td>
+      <td>-0.014808</td>
+      <td>-0.107521</td>
+      <td>-0.605212</td>
+      <td>-0.509929</td>
+      <td>-0.709493</td>
+      <td>-0.635361</td>
+      <td>-0.526101</td>
+      <td>-0.703257</td>
+      <td>-0.459450</td>
+      <td>...</td>
+      <td>0.159076</td>
+      <td>-0.315186</td>
+      <td>-0.624502</td>
+      <td>0.008033</td>
+      <td>-0.011145</td>
+      <td>0.027081</td>
+      <td>0.011778</td>
+      <td>-0.576544</td>
+      <td>-0.032363</td>
+      <td>-0.095462</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.279178</td>
+      <td>-0.015483</td>
+      <td>-0.105662</td>
+      <td>-0.507691</td>
+      <td>-0.402725</td>
+      <td>-0.646444</td>
+      <td>-0.537623</td>
+      <td>-0.424938</td>
+      <td>-0.635705</td>
+      <td>-0.376146</td>
+      <td>...</td>
+      <td>0.030756</td>
+      <td>-0.114361</td>
+      <td>-0.453200</td>
+      <td>-0.009112</td>
+      <td>-0.015217</td>
+      <td>-0.009531</td>
+      <td>-0.023395</td>
+      <td>-0.598121</td>
+      <td>-0.037873</td>
+      <td>-0.044082</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.272377</td>
+      <td>-0.017570</td>
+      <td>-0.115995</td>
+      <td>-0.505086</td>
+      <td>-0.368404</td>
+      <td>-0.672512</td>
+      <td>-0.540118</td>
+      <td>-0.395514</td>
+      <td>-0.674839</td>
+      <td>-0.344451</td>
+      <td>...</td>
+      <td>0.081818</td>
+      <td>-0.219280</td>
+      <td>-0.568413</td>
+      <td>-0.013833</td>
+      <td>-0.003482</td>
+      <td>0.092327</td>
+      <td>-0.062347</td>
+      <td>-0.528658</td>
+      <td>0.019734</td>
+      <td>-0.012552</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.270212</td>
+      <td>-0.018790</td>
+      <td>-0.112492</td>
+      <td>-0.577518</td>
+      <td>-0.546403</td>
+      <td>-0.456474</td>
+      <td>-0.602693</td>
+      <td>-0.570104</td>
+      <td>-0.463887</td>
+      <td>-0.422927</td>
+      <td>...</td>
+      <td>0.063192</td>
+      <td>-0.252253</td>
+      <td>-0.602510</td>
+      <td>0.002690</td>
+      <td>-0.010143</td>
+      <td>0.042196</td>
+      <td>-0.023012</td>
+      <td>-0.525683</td>
+      <td>0.108787</td>
+      <td>-0.033426</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.270759</td>
+      <td>-0.018189</td>
+      <td>-0.106810</td>
+      <td>-0.582959</td>
+      <td>-0.349384</td>
+      <td>-0.499473</td>
+      <td>-0.608403</td>
+      <td>-0.374859</td>
+      <td>-0.499817</td>
+      <td>-0.458384</td>
+      <td>...</td>
+      <td>0.223749</td>
+      <td>-0.441251</td>
+      <td>-0.741223</td>
+      <td>0.024102</td>
+      <td>-0.044776</td>
+      <td>-0.045656</td>
+      <td>-0.014249</td>
+      <td>-0.464038</td>
+      <td>0.046956</td>
+      <td>-0.059644</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.270314</td>
+      <td>-0.020947</td>
+      <td>-0.101234</td>
+      <td>-0.555657</td>
+      <td>-0.575888</td>
+      <td>-0.506112</td>
+      <td>-0.585175</td>
+      <td>-0.581992</td>
+      <td>-0.499956</td>
+      <td>-0.413250</td>
+      <td>...</td>
+      <td>0.092776</td>
+      <td>-0.207821</td>
+      <td>-0.518703</td>
+      <td>0.006596</td>
+      <td>-0.010428</td>
+      <td>0.086784</td>
+      <td>-0.023103</td>
+      <td>-0.558093</td>
+      <td>0.116895</td>
+      <td>-0.089849</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.276848</td>
+      <td>-0.017836</td>
+      <td>-0.111302</td>
+      <td>-0.537808</td>
+      <td>-0.497406</td>
+      <td>-0.614777</td>
+      <td>-0.567943</td>
+      <td>-0.514818</td>
+      <td>-0.615910</td>
+      <td>-0.386095</td>
+      <td>...</td>
+      <td>0.153580</td>
+      <td>-0.345873</td>
+      <td>-0.666458</td>
+      <td>0.002833</td>
+      <td>-0.003624</td>
+      <td>-0.019220</td>
+      <td>0.052032</td>
+      <td>-0.502995</td>
+      <td>0.140515</td>
+      <td>-0.004994</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0.276585</td>
+      <td>-0.019127</td>
+      <td>-0.108942</td>
+      <td>-0.589476</td>
+      <td>-0.490379</td>
+      <td>-0.665324</td>
+      <td>-0.612554</td>
+      <td>-0.498196</td>
+      <td>-0.653167</td>
+      <td>-0.470542</td>
+      <td>...</td>
+      <td>0.117892</td>
+      <td>-0.401848</td>
+      <td>-0.704997</td>
+      <td>0.000088</td>
+      <td>-0.018897</td>
+      <td>0.050634</td>
+      <td>-0.035086</td>
+      <td>-0.536003</td>
+      <td>0.001652</td>
+      <td>-0.076907</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0.273609</td>
+      <td>-0.018337</td>
+      <td>-0.106649</td>
+      <td>-0.583962</td>
+      <td>-0.522040</td>
+      <td>-0.699294</td>
+      <td>-0.613369</td>
+      <td>-0.545492</td>
+      <td>-0.704234</td>
+      <td>-0.410080</td>
+      <td>...</td>
+      <td>0.070587</td>
+      <td>-0.231608</td>
+      <td>-0.577549</td>
+      <td>0.016709</td>
+      <td>0.016331</td>
+      <td>0.118882</td>
+      <td>-0.064495</td>
+      <td>-0.558571</td>
+      <td>0.028458</td>
+      <td>-0.009782</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0.275896</td>
+      <td>-0.017650</td>
+      <td>-0.109135</td>
+      <td>-0.624844</td>
+      <td>-0.448816</td>
+      <td>-0.587231</td>
+      <td>-0.649848</td>
+      <td>-0.462358</td>
+      <td>-0.593589</td>
+      <td>-0.494129</td>
+      <td>...</td>
+      <td>0.157417</td>
+      <td>-0.195447</td>
+      <td>-0.519881</td>
+      <td>-0.004638</td>
+      <td>0.012223</td>
+      <td>0.093953</td>
+      <td>-0.027674</td>
+      <td>-0.500095</td>
+      <td>0.091682</td>
+      <td>-0.024323</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0.270185</td>
+      <td>-0.016255</td>
+      <td>-0.100986</td>
+      <td>-0.611671</td>
+      <td>-0.374731</td>
+      <td>-0.293543</td>
+      <td>-0.645694</td>
+      <td>-0.402049</td>
+      <td>-0.322575</td>
+      <td>-0.441637</td>
+      <td>...</td>
+      <td>0.090758</td>
+      <td>-0.407310</td>
+      <td>-0.711035</td>
+      <td>0.032230</td>
+      <td>0.022402</td>
+      <td>-0.052575</td>
+      <td>0.027835</td>
+      <td>-0.418868</td>
+      <td>0.157115</td>
+      <td>0.121502</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0.278213</td>
+      <td>-0.016464</td>
+      <td>-0.112564</td>
+      <td>-0.556541</td>
+      <td>-0.481680</td>
+      <td>-0.705707</td>
+      <td>-0.586357</td>
+      <td>-0.497627</td>
+      <td>-0.705956</td>
+      <td>-0.419304</td>
+      <td>...</td>
+      <td>0.095556</td>
+      <td>-0.353097</td>
+      <td>-0.669370</td>
+      <td>0.013419</td>
+      <td>-0.012387</td>
+      <td>0.000728</td>
+      <td>0.006675</td>
+      <td>-0.522572</td>
+      <td>-0.028347</td>
+      <td>-0.003969</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0.277887</td>
+      <td>-0.015857</td>
+      <td>-0.107264</td>
+      <td>-0.668161</td>
+      <td>-0.649947</td>
+      <td>-0.603820</td>
+      <td>-0.680067</td>
+      <td>-0.660971</td>
+      <td>-0.608293</td>
+      <td>-0.581814</td>
+      <td>...</td>
+      <td>0.153211</td>
+      <td>-0.385111</td>
+      <td>-0.705076</td>
+      <td>-0.000583</td>
+      <td>0.020562</td>
+      <td>-0.026330</td>
+      <td>0.035107</td>
+      <td>-0.514965</td>
+      <td>0.125281</td>
+      <td>-0.034452</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>0.274030</td>
+      <td>-0.017542</td>
+      <td>-0.109200</td>
+      <td>-0.608455</td>
+      <td>-0.567005</td>
+      <td>-0.660583</td>
+      <td>-0.627950</td>
+      <td>-0.574807</td>
+      <td>-0.659097</td>
+      <td>-0.491095</td>
+      <td>...</td>
+      <td>0.232793</td>
+      <td>-0.320333</td>
+      <td>-0.617911</td>
+      <td>0.013554</td>
+      <td>-0.002771</td>
+      <td>0.015170</td>
+      <td>0.011146</td>
+      <td>-0.495305</td>
+      <td>0.082158</td>
+      <td>0.021323</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0.276324</td>
+      <td>-0.017283</td>
+      <td>-0.108112</td>
+      <td>-0.694617</td>
+      <td>-0.627118</td>
+      <td>-0.701596</td>
+      <td>-0.721061</td>
+      <td>-0.631132</td>
+      <td>-0.704939</td>
+      <td>-0.529365</td>
+      <td>...</td>
+      <td>0.193231</td>
+      <td>-0.447549</td>
+      <td>-0.740247</td>
+      <td>0.009953</td>
+      <td>0.016955</td>
+      <td>0.017142</td>
+      <td>-0.041463</td>
+      <td>-0.521265</td>
+      <td>0.076008</td>
+      <td>-0.052170</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0.269723</td>
+      <td>-0.018203</td>
+      <td>-0.118277</td>
+      <td>-0.574659</td>
+      <td>-0.507035</td>
+      <td>-0.649185</td>
+      <td>-0.593922</td>
+      <td>-0.508237</td>
+      <td>-0.659923</td>
+      <td>-0.463797</td>
+      <td>...</td>
+      <td>0.128630</td>
+      <td>-0.300974</td>
+      <td>-0.630685</td>
+      <td>0.002538</td>
+      <td>0.003712</td>
+      <td>0.031554</td>
+      <td>0.001034</td>
+      <td>-0.297668</td>
+      <td>0.001516</td>
+      <td>-0.156363</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>0.268426</td>
+      <td>-0.017591</td>
+      <td>-0.108029</td>
+      <td>-0.604847</td>
+      <td>-0.369337</td>
+      <td>-0.634787</td>
+      <td>-0.629864</td>
+      <td>-0.379690</td>
+      <td>-0.640833</td>
+      <td>-0.469480</td>
+      <td>...</td>
+      <td>0.050429</td>
+      <td>-0.258071</td>
+      <td>-0.604337</td>
+      <td>0.001926</td>
+      <td>0.011064</td>
+      <td>-0.006111</td>
+      <td>-0.017420</td>
+      <td>-0.429102</td>
+      <td>0.083665</td>
+      <td>-0.057008</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>0.277467</td>
+      <td>-0.017666</td>
+      <td>-0.108778</td>
+      <td>-0.672324</td>
+      <td>-0.565585</td>
+      <td>-0.669622</td>
+      <td>-0.688825</td>
+      <td>-0.573811</td>
+      <td>-0.673969</td>
+      <td>-0.562680</td>
+      <td>...</td>
+      <td>0.205644</td>
+      <td>-0.309332</td>
+      <td>-0.612566</td>
+      <td>0.012075</td>
+      <td>-0.014650</td>
+      <td>0.014012</td>
+      <td>0.022089</td>
+      <td>-0.413916</td>
+      <td>0.128427</td>
+      <td>-0.019176</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>0.274768</td>
+      <td>-0.016827</td>
+      <td>-0.108670</td>
+      <td>-0.546090</td>
+      <td>-0.491188</td>
+      <td>-0.655090</td>
+      <td>-0.554145</td>
+      <td>-0.516863</td>
+      <td>-0.661987</td>
+      <td>-0.465111</td>
+      <td>...</td>
+      <td>0.119561</td>
+      <td>-0.165095</td>
+      <td>-0.462744</td>
+      <td>0.005920</td>
+      <td>0.004058</td>
+      <td>-0.008895</td>
+      <td>0.022201</td>
+      <td>-0.428061</td>
+      <td>0.051121</td>
+      <td>-0.163515</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>0.273493</td>
+      <td>-0.019589</td>
+      <td>-0.109094</td>
+      <td>-0.622594</td>
+      <td>-0.532079</td>
+      <td>-0.450557</td>
+      <td>-0.653235</td>
+      <td>-0.563066</td>
+      <td>-0.464788</td>
+      <td>-0.466547</td>
+      <td>...</td>
+      <td>0.169185</td>
+      <td>-0.291037</td>
+      <td>-0.638293</td>
+      <td>0.004993</td>
+      <td>-0.011236</td>
+      <td>0.012165</td>
+      <td>-0.017810</td>
+      <td>-0.503722</td>
+      <td>0.070991</td>
+      <td>-0.044002</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>0.276767</td>
+      <td>-0.017682</td>
+      <td>-0.107915</td>
+      <td>-0.675459</td>
+      <td>-0.582491</td>
+      <td>-0.636497</td>
+      <td>-0.696740</td>
+      <td>-0.604195</td>
+      <td>-0.647960</td>
+      <td>-0.540884</td>
+      <td>...</td>
+      <td>0.161740</td>
+      <td>-0.237735</td>
+      <td>-0.546802</td>
+      <td>-0.002317</td>
+      <td>-0.012478</td>
+      <td>-0.013983</td>
+      <td>-0.003003</td>
+      <td>-0.545994</td>
+      <td>0.019867</td>
+      <td>-0.031231</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>0.275301</td>
+      <td>-0.019322</td>
+      <td>-0.109629</td>
+      <td>-0.716265</td>
+      <td>-0.531421</td>
+      <td>-0.647096</td>
+      <td>-0.736111</td>
+      <td>-0.540053</td>
+      <td>-0.633559</td>
+      <td>-0.606640</td>
+      <td>...</td>
+      <td>0.047148</td>
+      <td>-0.301955</td>
+      <td>-0.613265</td>
+      <td>-0.001222</td>
+      <td>0.047037</td>
+      <td>-0.026690</td>
+      <td>0.022386</td>
+      <td>-0.512419</td>
+      <td>0.030739</td>
+      <td>-0.159471</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>0.273037</td>
+      <td>-0.016169</td>
+      <td>-0.107638</td>
+      <td>-0.623101</td>
+      <td>-0.585967</td>
+      <td>-0.704981</td>
+      <td>-0.654029</td>
+      <td>-0.600976</td>
+      <td>-0.707917</td>
+      <td>-0.473773</td>
+      <td>...</td>
+      <td>0.147534</td>
+      <td>-0.287865</td>
+      <td>-0.613877</td>
+      <td>0.021668</td>
+      <td>0.016865</td>
+      <td>-0.017591</td>
+      <td>-0.011625</td>
+      <td>-0.482704</td>
+      <td>-0.010055</td>
+      <td>-0.149816</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>0.277265</td>
+      <td>-0.016797</td>
+      <td>-0.110848</td>
+      <td>-0.660976</td>
+      <td>-0.630460</td>
+      <td>-0.683215</td>
+      <td>-0.680741</td>
+      <td>-0.636007</td>
+      <td>-0.684283</td>
+      <td>-0.519910</td>
+      <td>...</td>
+      <td>0.203685</td>
+      <td>-0.358835</td>
+      <td>-0.657991</td>
+      <td>0.001028</td>
+      <td>0.016522</td>
+      <td>0.055137</td>
+      <td>-0.054855</td>
+      <td>-0.464214</td>
+      <td>0.054838</td>
+      <td>-0.098458</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>0.277533</td>
+      <td>-0.019172</td>
+      <td>-0.109711</td>
+      <td>-0.649040</td>
+      <td>-0.573652</td>
+      <td>-0.685821</td>
+      <td>-0.670199</td>
+      <td>-0.589692</td>
+      <td>-0.698180</td>
+      <td>-0.512731</td>
+      <td>...</td>
+      <td>-0.002009</td>
+      <td>-0.279055</td>
+      <td>-0.620942</td>
+      <td>0.005140</td>
+      <td>-0.009011</td>
+      <td>0.048076</td>
+      <td>-0.001505</td>
+      <td>-0.437369</td>
+      <td>0.182744</td>
+      <td>0.062408</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>0.279112</td>
+      <td>-0.018472</td>
+      <td>-0.108676</td>
+      <td>-0.574295</td>
+      <td>-0.598400</td>
+      <td>-0.606461</td>
+      <td>-0.603142</td>
+      <td>-0.616667</td>
+      <td>-0.609089</td>
+      <td>-0.420948</td>
+      <td>...</td>
+      <td>0.212434</td>
+      <td>-0.443110</td>
+      <td>-0.738139</td>
+      <td>0.008432</td>
+      <td>-0.004451</td>
+      <td>-0.043107</td>
+      <td>-0.000947</td>
+      <td>-0.560722</td>
+      <td>-0.015937</td>
+      <td>-0.131057</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>0.276306</td>
+      <td>-0.017586</td>
+      <td>-0.105894</td>
+      <td>-0.615891</td>
+      <td>-0.519047</td>
+      <td>-0.522643</td>
+      <td>-0.651964</td>
+      <td>-0.533108</td>
+      <td>-0.510898</td>
+      <td>-0.415788</td>
+      <td>...</td>
+      <td>0.043305</td>
+      <td>-0.281106</td>
+      <td>-0.608008</td>
+      <td>0.008293</td>
+      <td>0.017004</td>
+      <td>0.023179</td>
+      <td>-0.022033</td>
+      <td>-0.563683</td>
+      <td>0.034738</td>
+      <td>-0.118056</td>
+    </tr>
+  </tbody>
+</table>
+<p>30 rows × 561 columns</p>
 </div>
 </div>
 
